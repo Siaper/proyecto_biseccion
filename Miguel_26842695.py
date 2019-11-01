@@ -20,11 +20,34 @@ def biseccion(f, a, b, ER, N):
     N: número máximo de iteraciones.
     """
 
-    print("Iteración:", i, "Punto Medio:", pm_actual, "Error:", err)
+    i=1
+    pm_actual=0
+    pm_previo=0
+    err=0.1
+
+
+    while i < N and err > ER:
+        pm_previo=pm_actual
+        pm_actual=(a+b)/2
+
+        if f(pm_actual)*f(b)<0:
+            a=pm_actual
+        else:
+            b=pm_actual
+        
+        if i > 1:
+            err=math.fabs((pm_actual-pm_previo)/pm_actual)
+
+        print("Iteración:", i, "Punto Medio:", pm_actual, "Error:", err)
+        
+        i+=1
 
     return pm_actual
 
 
 if __name__ == "__main__":
     # Pruebe aquí su función.
-    pass
+    
+    f= lambda x: math.exp(-x)-math.log(x)
+
+    print ("Este es el resultado de el punto medio ",biseccion(f,1,1.5,0.01,7))
